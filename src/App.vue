@@ -1,30 +1,54 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <router-view />
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body {
+    background-image: url('@/assets/background.svg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-size: 1vw;
 }
 
-nav {
-  padding: 30px;
+h1 {
+    font-family: "Mouse Memoirs", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 9.5em;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+h2 {
+    font-family: "Mouse Memoirs", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 6em;
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
+h3{
+    font-family: "Mouse Memoirs", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3.3em;
+}
+h4{
+    font-family: "Mouse Memoirs", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.3em;
+}
+span{
+    font-family: "Mouse Memoirs", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.8em;
+}
+.DARK-NAVY{
+    color: #261676;
+}
+.BLUE{
+    color: #2463FF;
+}
+.WHITE{
+    color: white;
 }
 </style>

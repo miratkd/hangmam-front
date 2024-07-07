@@ -1,18 +1,41 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img src="@/assets/icon.svg" class="home-icon" alt="">
+    <IconButton class="home-play-button" :img="require('@/assets/play.png')" />
+    <ButtonComponent text="REGRAS" @click="$router.push('rules')"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import IconButton from '../components/IconButton.vue'
+import ButtonComponent from '../components/ButtonComponent.vue'
 
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+  components: { IconButton, ButtonComponent }
 }
 </script>
+
+<style scoped>
+.home{
+  background-image: linear-gradient(to bottom, #344ABA , #001479bd);
+  box-shadow: inset #140E66 -2px -8px 0 4px, inset #2463FF 2px 8px 0 4px;
+  margin: 0 auto;
+  margin-top: 25vh;
+  width: 40vw;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 72px;
+}
+.home-icon{
+  width: 30vh;
+  margin-top: -7vh;
+}
+.home-play-button{
+  width: 17vh;
+  height: 17vh;
+  margin-top: 5vh;
+}
+</style>
