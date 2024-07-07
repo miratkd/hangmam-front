@@ -1,18 +1,33 @@
 <template>
   <div class="home">
     <img src="@/assets/icon.svg" class="home-icon" alt="">
-    <IconButton class="home-play-button" :img="require('@/assets/play.png')" />
+    <IconButton class="home-play-button" :img="require('@/assets/play.png')" @click="handlePlay"/>
     <ButtonComponent text="REGRAS" @click="$router.push('rules')"/>
+
+    <LogInModal v-if="showLogin" :close="() => showLogin = false"/>
   </div>
 </template>
 
 <script>
 import IconButton from '../components/IconButton.vue'
 import ButtonComponent from '../components/ButtonComponent.vue'
+import LogInModal from '../components/LogInModal.vue'
 
 export default {
   name: 'HomeView',
-  components: { IconButton, ButtonComponent }
+  components: { IconButton, ButtonComponent, LogInModal },
+  data () {
+    return {
+      showLogin: false
+    }
+  },
+  methods: {
+    handlePlay () {
+      this.showLogin = true
+      // return
+      // this.$router.push('categories')
+    }
+  }
 }
 </script>
 
