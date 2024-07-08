@@ -15,6 +15,11 @@ const routes = [
     path: '/categories',
     name: 'categories',
     component: () => import('../views/CategoriesView.vue')
+  },
+  {
+    path: '/match/:id',
+    name: 'match',
+    component: () => import('../views/MatchView.vue')
   }
 ]
 

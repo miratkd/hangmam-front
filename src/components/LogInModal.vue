@@ -42,7 +42,7 @@ export default {
   data () {
     return {
       showCreate: false,
-      email: 'mira@mira.com',
+      email: '',
       user: '',
       password: '',
       confirmPassword: '',

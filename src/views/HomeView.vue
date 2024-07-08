@@ -2,7 +2,7 @@
   <div class="home">
     <img src="@/assets/icon.svg" class="home-icon" alt="">
     <IconButton class="home-play-button" :img="require('@/assets/play.png')" @click="handlePlay"/>
-    <ButtonComponent text="REGRAS" @click="$router.push('rules')"/>
+    <ButtonComponent text="REGRAS" class="home-button" @click="$router.push('rules')"/>
 
     <LogInModal v-if="showLogin" :close="() => showLogin = false"/>
   </div>
@@ -23,9 +23,8 @@ export default {
   },
   methods: {
     handlePlay () {
-      this.showLogin = true
-      // return
-      // this.$router.push('categories')
+      if (!localStorage.getItem('token')) this.showLogin = true
+      else this.$router.push('categories')
     }
   }
 }
@@ -51,6 +50,9 @@ export default {
 .home-play-button{
   width: 17vh;
   height: 17vh;
+  margin-top: 5vh;
+}
+.home-button{
   margin-top: 5vh;
 }
 </style>
