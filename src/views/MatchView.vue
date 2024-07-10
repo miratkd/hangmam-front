@@ -1,14 +1,16 @@
 <template>
-  <LoadingComponent v-if="isLoading"/>
-  <div v-else  class="categories-page">
-    <TimeoutComponent v-if="showTimeoutModal" :answer="answer" :back="() => $router.push('/categories')"/>
+  <LoadingComponent v-if="isLoading" />
+  <div v-else class="match-page">
+    <TimeoutComponent v-if="showTimeoutModal" :answer="answer" :back="() => $router.push('/categories')" />
     <div class="match-title-container">
-      <IconButton :img="require('@/assets/back.png')" class="categories-back-button" @click="$router.push('/categories')"/>
+      <IconButton :img="require('@/assets/back.png')" class="match-back-button" @click="$router.push('/categories')" />
       <h2 class="match-title">{{ match.category }}</h2>
-      <TimerComponent :timeLeft="match.time_left" :timeoutMatch="timeoutMatch"/>
+      <TimerComponent :timeLeft="match.time_left" :timeoutMatch="timeoutMatch" />
       <LivesComponent :lives="match.lives" />
     </div>
-    <PhaseComponent :phaseList="match.word"/>
+    <PhaseComponent :phaseList="match.word" />
+    <KeyboardComponent :selectLetter="selectLetter" :letterList="match.letters_list" />
+    <img src="@/assets/loadIcon.svg" class="loading-icon" alt="" v-if="isletterLoading">
   </div>
 </template>
 
@@ -20,6 +22,7 @@ import axios from 'axios'
 import LivesComponent from '../components/LivesComponent.vue'
 import TimeoutComponent from '../components/TimeoutComponent.vue'
 import PhaseComponent from '../components/PhaseComponent.vue'
+import KeyboardComponent from '../components/KeyboardComponent.vue'
 export default {
   name: 'MatchView',
   components: {
@@ -28,7 +31,8 @@ export default {
     LoadingComponent,
     LivesComponent,
     TimeoutComponent,
-    PhaseComponent
+    PhaseComponent,
+    KeyboardComponent
   },
   created () {
     this.loadPage()
@@ -36,6 +40,7 @@ export default {
   data () {
     return {
       isLoading: true,
+      isletterLoading: false,
       config: { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } },
       match: {},
       showTimeoutModal: false,
@@ -45,13 +50,24 @@ export default {
   methods: {
     loadPage () {
       axios.get('https://hangman-production-0cde.up.railway.app/api/match/' + this.$route.params.id, this.config).then(resp => {
-        this.match = resp.data.data
-        if (this.match.time_left < 0) {
-          this.timeoutMatch()
-          return
-        }
-        this.match.lives = 6 - (this.match.letters_list.split('').length - this.match.letters_right)
+        this.prepareMatch(resp.data.data)
         this.isLoading = false
+      })
+    },
+    prepareMatch (match) {
+      this.match = match
+      if (this.match.time_left < 0) {
+        this.timeoutMatch()
+        return
+      }
+      this.match.lives = 6 - (this.match.letters_list.split('').length - this.match.letters_right)
+    },
+    selectLetter (letter) {
+      if (this.isletterLoading) return
+      this.isletterLoading = true
+      axios.put('https://hangman-production-0cde.up.railway.app/api/match/' + this.$route.params.id, { letter: letter }, this.config).then(resp => {
+        this.prepareMatch(resp.data.data)
+        this.isletterLoading = false
       })
     },
     timeoutMatch () {
@@ -66,10 +82,15 @@ export default {
 </script>
 
 <style scoped>
-.categories-page {
+.match-page {
   margin: 0 7vw;
   margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80vh;
 }
+
 .match-title-container {
   display: flex;
   align-items: center;
@@ -85,8 +106,26 @@ export default {
   margin-left: 5%;
 }
 
-.categories-back-button {
+.match-back-button {
   width: 5vw;
   height: 5vw;
+}
+
+.loading-icon {
+  width: 10vw;
+  position: absolute;
+  right: 10%;
+  top: 40%;
+  animation: rotate 1s infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
