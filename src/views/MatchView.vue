@@ -1,13 +1,14 @@
 <template>
-  <div  class="categories-page">
+  <LoadingComponent v-if="isLoading"/>
+  <div v-else  class="categories-page">
     <TimeoutComponent v-if="showTimeoutModal" :answer="answer" :back="() => $router.push('/categories')"/>
-    <LoadingComponent v-if="isLoading"/>
-    <div v-else class="categories-title-container">
+    <div class="match-title-container">
       <IconButton :img="require('@/assets/back.png')" class="categories-back-button" @click="$router.push('/categories')"/>
-      <h2 class="categories-title">{{ match.category }}</h2>
+      <h2 class="match-title">{{ match.category }}</h2>
       <TimerComponent :timeLeft="match.time_left" :timeoutMatch="timeoutMatch"/>
       <LivesComponent :lives="match.lives" />
     </div>
+    <PhaseComponent :phaseList="match.word"/>
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import LoadingComponent from '../components/LoadingComponent.vue'
 import axios from 'axios'
 import LivesComponent from '../components/LivesComponent.vue'
 import TimeoutComponent from '../components/TimeoutComponent.vue'
+import PhaseComponent from '../components/PhaseComponent.vue'
 export default {
   name: 'MatchView',
   components: {
@@ -25,7 +27,8 @@ export default {
     TimerComponent,
     LoadingComponent,
     LivesComponent,
-    TimeoutComponent
+    TimeoutComponent,
+    PhaseComponent
   },
   created () {
     this.loadPage()
@@ -67,13 +70,13 @@ export default {
   margin: 0 7vw;
   margin-top: 10vh;
 }
-.categories-title-container {
+.match-title-container {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-.categories-title {
+.match-title {
   color: transparent;
   background-image: linear-gradient(to bottom, #67B6FF, #FFFFFF);
   background-clip: text;
