@@ -3,8 +3,9 @@
   <div v-else class="match-page">
     <TimeoutComponent v-if="showTimeoutModal" :message="showTimeoutModal" :answer="answer" :back="() => $router.push('/categories')" />
     <WinModal v-if="match.is_win" :answer="match.word.join('')" :back="() => $router.push('/categories')"/>
+    <MatchMenuComponent v-if="showMenu" :close="() => showMenu = false"/>
     <div class="match-title-container">
-      <IconButton :img="require('@/assets/back.png')" class="match-back-button" @click="$router.push('/categories')" />
+      <IconButton :img="require('@/assets/menuIcon.png')" @click="showMenu=true" />
       <h2 class="match-title">{{ match.category }}</h2>
       <TimerComponent :timeLeft="match.time_left" :timeoutMatch="timeoutMatch" />
       <LivesComponent :lives="match.lives" />
@@ -25,6 +26,7 @@ import TimeoutComponent from '../components/TimeoutComponent.vue'
 import PhaseComponent from '../components/PhaseComponent.vue'
 import KeyboardComponent from '../components/KeyboardComponent.vue'
 import WinModal from '../components/WinModal.vue'
+import MatchMenuComponent from '../components/MatchMenuComponent.vue'
 export default {
   name: 'MatchView',
   components: {
@@ -35,7 +37,8 @@ export default {
     TimeoutComponent,
     PhaseComponent,
     KeyboardComponent,
-    WinModal
+    WinModal,
+    MatchMenuComponent
   },
   created () {
     this.loadPage()
@@ -47,7 +50,8 @@ export default {
       config: { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } },
       match: {},
       showTimeoutModal: undefined,
-      answer: ''
+      answer: '',
+      showMenu: false
     }
   },
   methods: {
@@ -114,11 +118,6 @@ export default {
   margin: 0;
   flex: 1;
   margin-left: 5%;
-}
-
-.match-back-button {
-  width: 5vw;
-  height: 5vw;
 }
 
 .loading-icon {

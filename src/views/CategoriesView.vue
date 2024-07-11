@@ -73,8 +73,6 @@ export default {
 }
 
 .categories-back-button {
-  width: 7vw;
-  height: 7vw;
   position: absolute;
   left: 0;
 }

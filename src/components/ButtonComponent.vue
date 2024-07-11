@@ -1,11 +1,11 @@
 <template>
-  <button class="button-container WHITE">{{ text }}</button>
+  <button class="button-container WHITE" :class="{'pink-button': pink}">{{ text }}</button>
 </template>
 
 <script>
 export default {
   name: 'ButtonComponent',
-  props: ['text']
+  props: ['text', 'pink']
 }
 </script>
 
@@ -28,5 +28,13 @@ export default {
 .button-container:hover{
   background-color: #5885f6;
   box-shadow: inset #25206b 0 -2px 0 3px, inset #6c95fa 0 2px 0 4px;
+}
+.pink-button{
+  background-image: linear-gradient(to bottom, #FE71FE, #7199FF);
+  box-shadow: inset #313b47 0 -2px 0 3px, inset #b05df0 0 -2px 0 4px;
+}
+.pink-button:hover{
+  background-image: linear-gradient(to bottom, #f793f7, #9ab5fa);
+  box-shadow: inset #313b47 0 -2px 0 3px, inset #b05df0 0 -2px 0 4px;
 }
 </style>
