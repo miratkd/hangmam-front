@@ -16,14 +16,12 @@
         <h2 class="BLUE">02</h2>
         <h3 class="DARK-NAVY">Escolha uma letra</h3>
         <span class="card-text">Tente descobrir a palavra. O computador preenche os espaços em branco relevantes se o
-          seu palpite estiver correto. Se estiver errado, você perde um pouco de saúde, que esvazia após seis palpites
-          incorretos. Você também tem um limite de 10 minutos para advinhar a palavra</span>
+          seu palpite estiver correto. Se estiver errado, você perde uma vida (de um total de 6 vidas). Você também tem um limite de 10 minutos para adivinhar a palavra</span>
       </div>
       <div class="rules-card">
         <h2 class="BLUE">03</h2>
         <h3 class="DARK-NAVY">Ganhe ou perca</h3>
-        <span class="card-text">Você ganha adivinhando todas as letras da palavra antes que sua saúde acabe. Se a barra
-          de saúde esvaziar ou o tempo acabar antes de você adivinhar a palavra, você perde.</span>
+        <span class="card-text">Você ganha adivinhando todas as letras da palavra antes que suas vidas acabem. Se você ficar sem vidas ou o tempo acabar antes de você adivinhar a palavra, você perde.</span>
       </div>
     </div>
   </div>

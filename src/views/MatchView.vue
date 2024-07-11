@@ -1,7 +1,8 @@
 <template>
   <LoadingComponent v-if="isLoading" />
   <div v-else class="match-page">
-    <TimeoutComponent v-if="showTimeoutModal" :answer="answer" :back="() => $router.push('/categories')" />
+    <TimeoutComponent v-if="showTimeoutModal" :message="showTimeoutModal" :answer="answer" :back="() => $router.push('/categories')" />
+    <WinModal v-if="match.is_win" :answer="match.word.join('')" :back="() => $router.push('/categories')"/>
     <div class="match-title-container">
       <IconButton :img="require('@/assets/back.png')" class="match-back-button" @click="$router.push('/categories')" />
       <h2 class="match-title">{{ match.category }}</h2>
@@ -23,6 +24,7 @@ import LivesComponent from '../components/LivesComponent.vue'
 import TimeoutComponent from '../components/TimeoutComponent.vue'
 import PhaseComponent from '../components/PhaseComponent.vue'
 import KeyboardComponent from '../components/KeyboardComponent.vue'
+import WinModal from '../components/WinModal.vue'
 export default {
   name: 'MatchView',
   components: {
@@ -32,7 +34,8 @@ export default {
     LivesComponent,
     TimeoutComponent,
     PhaseComponent,
-    KeyboardComponent
+    KeyboardComponent,
+    WinModal
   },
   created () {
     this.loadPage()
@@ -43,7 +46,7 @@ export default {
       isletterLoading: false,
       config: { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } },
       match: {},
-      showTimeoutModal: false,
+      showTimeoutModal: undefined,
       answer: ''
     }
   },
@@ -55,6 +58,13 @@ export default {
       })
     },
     prepareMatch (match) {
+      if (match.isOver) {
+        this.answer = match.word
+        this.showTimeoutModal = 'suas tentativas acabaram'
+        this.isletterLoading = false
+        this.match.lives = 0
+        return
+      }
       this.match = match
       if (this.match.time_left < 0) {
         this.timeoutMatch()
@@ -73,7 +83,7 @@ export default {
     timeoutMatch () {
       axios.put('https://hangman-production-0cde.up.railway.app/api/match/' + this.$route.params.id, { letter: '1' }, this.config).then(resp => {
         this.answer = resp.data.data.word
-        this.showTimeoutModal = true
+        this.showTimeoutModal = 'seu tempo acabou'
         this.isLoading = false
       })
     }

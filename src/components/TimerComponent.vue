@@ -29,12 +29,12 @@ export default {
     },
     async runProgressBarr () {
       let progress = this.timeLeft
-      while (progress >= 0) {
+      while (progress >= 0 && document.getElementById('timerbar')) {
         document.getElementById('timerbar').style.width = progress / 6 + '%'
         progress -= 1
         await this.delay(1000)
       }
-      this.timeoutMatch()
+      document.getElementById('timerbar') && this.timeoutMatch()
     }
   }
 }
