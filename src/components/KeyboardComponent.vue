@@ -1,6 +1,6 @@
 <template>
   <div class="keyboard-container">
-    <ButtonComponent class="keyboard-button"
+    <ButtonComponent class="keyboard-button" :white="true"
     :class="{'disabled-button': letterList.includes(letter.toLocaleLowerCase())}"
     @click="!letterList.includes(letter.toLocaleLowerCase()) && selectLetter(letter.toLocaleLowerCase())"
     v-for="letter in letters" :key="letter" :text="letter"/>
@@ -44,7 +44,7 @@ export default {
 .disabled-button{
   background-color: darkgray;
   box-shadow: inset rgb(120, 120, 120) 0 -2px 0 3px, inset rgb(118, 118, 118) 0 2px 0 4px;
-  color: rgb(67, 67, 67);
+  color: rgb(67, 67, 67) !important;
   cursor: default;
 }
 .disabled-button:hover{

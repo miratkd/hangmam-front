@@ -49,7 +49,7 @@ export default {
   background-image: linear-gradient(to bottom, #344ABA, #001479bd);
   box-shadow: inset #140E66 -2px -8px 0 4px, inset #2463FF 2px 8px 0 4px;
   left: 20vw;
-  width: 65vw;
+  width: 70vw;
   display: flex;
   flex-direction: column;
   align-items: center;

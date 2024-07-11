@@ -30,6 +30,6 @@ export default {
 }
 .icon-button-icon{
   width: 40%;
-  margin-top: -1vh;
+  margin-top: -0.5vh;
 }
 </style>

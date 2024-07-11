@@ -1,11 +1,11 @@
 <template>
-  <button class="button-container WHITE" :class="{'pink-button': pink}">{{ text }}</button>
+  <button class="button-container WHITE" :class="{'pink-button': pink, 'white-button': white}">{{ text }}</button>
 </template>
 
 <script>
 export default {
   name: 'ButtonComponent',
-  props: ['text', 'pink']
+  props: ['text', 'pink', 'white']
 }
 </script>
 
@@ -36,5 +36,20 @@ export default {
 .pink-button:hover{
   background-image: linear-gradient(to bottom, #f793f7, #9ab5fa);
   box-shadow: inset #313b47 0 -2px 0 3px, inset #b05df0 0 -2px 0 4px;
+}
+.white-button{
+  background-color: white;
+  color: #2463FF;
+}
+.white-button{
+  background-color: white;
+  color: #2463FF;
+  box-shadow: none;
+  transition: none !important;
+}
+.white-button:hover{
+  background-color: #2463FF;
+  color: white;
+  box-shadow: none;
 }
 </style>
