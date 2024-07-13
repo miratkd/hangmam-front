@@ -28,13 +28,12 @@
 
 <script>
 import ButtonComponent from './ButtonComponent.vue'
-import axios from 'axios'
 import NotificationService from '../services/NotificationService'
 import LoadingComponent from '../components/LoadingComponent'
-
+import RequestService from '@/services/RequestService'
 export default {
   name: 'LogInModal',
-  props: ['close'],
+  props: ['close', 'push'],
   components: {
     ButtonComponent,
     LoadingComponent
@@ -47,6 +46,7 @@ export default {
       password: '',
       confirmPassword: '',
       notification: new NotificationService(),
+      requestService: new RequestService(),
       emailAlert: false,
       userAlert: false,
       passwordAlerts: false,
@@ -57,19 +57,18 @@ export default {
     login () {
       if (this.loginFormIsNotValid()) return
       this.isLoading = true
-      axios.post('https://hangman-production-0cde.up.railway.app/api/login', {
-        email: this.email,
-        password: this.password
-      }).then(resp => {
+      this.requestService.login({ email: this.email, password: this.password }).then(resp => {
         localStorage.setItem('token', resp.data.token)
-        this.$router.push('categories')
+        if (this.push) this.$router.push(this.push)
+        else this.close()
       }).catch(error => {
-        this.isLoading = false
+        if (this.requestService.isTokenExpired(error)) return
         if (error.response.status === 403) {
           this.notification.send('Email ou senha incorretos')
           this.emailAlert = true
           this.passwordAlerts = true
-        } else this.notification.send('Desculpe, não foi possivel fazer o login')
+        } else this.requestService.genericErrorMessage()
+        this.isLoading = false
       })
     },
     emailIsValid (email) {
@@ -83,40 +82,41 @@ export default {
       if (!this.email || !this.emailIsValid(this.email)) {
         this.notification.send('Por favor, preencha o campo email corretamente')
         this.emailAlert = true
+        return true
       }
       if (!this.password) {
         this.notification.send('Por favor, preencha o campo senha corretamente')
         this.passwordAlerts = true
+        return true
       }
-      return this.emailAlert || this.passwordAlerts
     },
     createFormIsNotValid () {
       if (!this.email || !this.emailIsValid(this.email)) {
         this.notification.send('Por favor, preencha o campo email corretamente')
         this.emailAlert = true
-      }
+      } else this.emailAlert = false
       if (!this.user) {
         this.notification.send('Por favor, preencha o campo usuário')
         this.userAlert = true
-      }
+      } else this.userAlert = false
       if (!this.password || !this.confirmPassword || this.password !== this.confirmPassword) {
         this.notification.send('Por favor, preencha os campos de senha corretamente')
         this.passwordAlerts = true
-      }
+      } else this.passwordAlerts = false
       return this.emailAlert || this.userAlert || this.passwordAlerts
     },
     handleButtonClick () {
       if (this.showCreate) {
         if (this.createFormIsNotValid()) return
         this.isLoading = true
-        axios.post('https://hangman-production-0cde.up.railway.app/api/users', {
+        this.requestService.createAccount({
           email: this.email,
           password: this.password,
           name: this.user
         }).then(() => this.login()).catch(error => {
           this.isLoading = false
           if (error.response.data.message === 'The email has already been taken.') this.notification.send('Desculpe, esse email ja esta em uso')
-          else this.notification.send('Desculpe, não foi possível criar uma conta')
+          else this.requestService.genericErrorMessage()
         })
       } else this.login()
     }

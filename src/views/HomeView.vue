@@ -1,10 +1,18 @@
 <template>
   <div class="home">
     <img src="@/assets/icon.svg" class="home-icon" alt="">
-    <IconButton class="home-play-button" :img="require('@/assets/play.png')" @click="handlePlay"/>
-    <ButtonComponent text="REGRAS" class="home-button" @click="$router.push('rules')"/>
-
-    <LogInModal v-if="showLogin" :close="() => showLogin = false"/>
+    <IconButton class="home-play-button" :img="require('@/assets/play.png')" @click="handlePlay" />
+    <div class="home-buttons-container" v-if="token">
+      <ButtonComponent text="Regras" class="home-button" @click="$router.push('rules')" />
+      <ButtonComponent text="Continuar" class="home-button" @click="$router.push('rules')" />
+      <ButtonComponent text="Meu Perfil" class="home-button" @click="$router.push('rules')" />
+      <ButtonComponent text="Sair" :pink="true" class="home-button" @click="cleanToken" />
+    </div>
+    <div class="home-buttons-container" v-else>
+      <ButtonComponent text="Regras" class="home-button" @click="$router.push('rules')" />
+      <ButtonComponent text="Login" class="home-button" @click="login" />
+    </div>
+    <LogInModal v-if="showLogin" :push="push" :close="closeLogin" />
   </div>
 </template>
 
@@ -12,27 +20,51 @@
 import IconButton from '../components/IconButton.vue'
 import ButtonComponent from '../components/ButtonComponent.vue'
 import LogInModal from '../components/LogInModal.vue'
-
+import RequestService from '@/services/RequestService'
+import NotificationService from '@/services/NotificationService'
 export default {
   name: 'HomeView',
   components: { IconButton, ButtonComponent, LogInModal },
   data () {
     return {
-      showLogin: false
+      showLogin: false,
+      requestService: new RequestService(),
+      token: localStorage.getItem('token'),
+      push: undefined
+    }
+  },
+  mounted () {
+    if (this.$route.query.login) {
+      this.push = 'categories'
+      this.showLogin = true
+      new NotificationService().send('Desculpe, sua seção inspirou')
     }
   },
   methods: {
     handlePlay () {
-      if (!localStorage.getItem('token')) this.showLogin = true
-      else this.$router.push('categories')
+      if (!this.token) {
+        this.push = 'categories'
+        this.showLogin = true
+      } else this.$router.push('categories')
+    },
+    login () {
+      this.showLogin = true
+    },
+    cleanToken () {
+      localStorage.removeItem('token')
+      this.token = null
+    },
+    closeLogin () {
+      this.showLogin = false
+      this.token = localStorage.getItem('token')
     }
   }
 }
 </script>
 
 <style scoped>
-.home{
-  background-image: linear-gradient(to bottom, #344ABA , #001479bd);
+.home {
+  background-image: linear-gradient(to bottom, #344ABA, #001479bd);
   box-shadow: inset #140E66 -2px -8px 0 4px, inset #2463FF 2px 8px 0 4px;
   margin: 0 auto;
   margin-top: 25vh;
@@ -43,16 +75,26 @@ export default {
   align-items: center;
   border-radius: 72px;
 }
-.home-icon{
+
+.home-icon {
   width: 30vh;
   margin-top: -7vh;
 }
-.home-play-button{
+
+.home-play-button {
   width: 17vh;
   height: 17vh;
   margin-top: 5vh;
 }
-.home-button{
-  margin-top: 5vh;
+
+.home-button {
+  width: 15vw;
+}
+
+.home-buttons-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5vh 2vw;
+  margin-top: 3vh;
 }
 </style>
