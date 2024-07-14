@@ -20,7 +20,7 @@
 import IconButton from '@/components/IconButton.vue'
 import TimerComponent from '../components/TimerComponent.vue'
 import LoadingComponent from '../components/LoadingComponent.vue'
-import axios from 'axios'
+import RequestService from '@/services/RequestService'
 import LivesComponent from '../components/LivesComponent.vue'
 import TimeoutComponent from '../components/TimeoutComponent.vue'
 import PhaseComponent from '../components/PhaseComponent.vue'
@@ -51,12 +51,14 @@ export default {
       match: {},
       showTimeoutModal: undefined,
       answer: '',
-      showMenu: false
+      showMenu: false,
+      request: new RequestService(),
+      id: this.$route.params.id
     }
   },
   methods: {
     loadPage () {
-      axios.get('https://hangman-production-0cde.up.railway.app/api/match/' + this.$route.params.id, this.config).then(resp => {
+      this.request.loadMatch(this.id).then(resp => {
         this.prepareMatch(resp.data.data)
         this.isLoading = false
       })
@@ -79,13 +81,13 @@ export default {
     selectLetter (letter) {
       if (this.isletterLoading) return
       this.isletterLoading = true
-      axios.put('https://hangman-production-0cde.up.railway.app/api/match/' + this.$route.params.id, { letter: letter }, this.config).then(resp => {
+      this.request.setLetter(this.id, letter).then(resp => {
         this.prepareMatch(resp.data.data)
         this.isletterLoading = false
       })
     },
     timeoutMatch () {
-      axios.put('https://hangman-production-0cde.up.railway.app/api/match/' + this.$route.params.id, { letter: '1' }, this.config).then(resp => {
+      this.request.setLetter(this.id, '1').then(resp => {
         this.answer = resp.data.data.word
         this.showTimeoutModal = 'seu tempo acabou'
         this.isLoading = false

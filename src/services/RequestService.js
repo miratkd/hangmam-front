@@ -37,6 +37,14 @@ export default class RequestService {
     return axios.get(this.url + 'avaible', this.config)
   }
 
+  loadMatch (id) {
+    return axios.get(this.url + 'match/' + id, this.config)
+  }
+
+  setLetter (id, letter) {
+    return axios.put(this.url + 'match/' + id, { letter: letter }, this.config)
+  }
+
   // functions
   isTokenExpired (error) {
     if (error.response.status === 401 && error.response.data.message === 'Unauthenticated.') {

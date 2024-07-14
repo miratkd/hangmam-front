@@ -4,7 +4,7 @@
       <h1 class="menu-title">Menu</h1>
       <ButtonComponent class="menu-button" @click="close" text="Continuar"/>
       <ButtonComponent class="menu-button" @click="$router.push('/categories')" text="Nova categoria"/>
-      <ButtonComponent class="menu-button" @click="$router.push('/')" :pink="true" text="Desistir"/>
+      <ButtonComponent class="menu-button" @click="$router.push('/')" :pink="true" text="Menu"/>
     </div>
   </div>
 </template>

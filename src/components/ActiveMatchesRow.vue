@@ -1,5 +1,5 @@
 <template>
-  <div class="match-row-container">
+  <div class="match-row-container" @click="send">
     <span class="DARK-NAVY">{{ match.category }}</span>
     <IconButton class="match-play-button" :img="require('@/assets/play.png')" @click="handlePlay" />
   </div>
@@ -15,6 +15,11 @@ export default {
   props: {
     match: {
       type: Object
+    }
+  },
+  methods: {
+    send () {
+      this.$router.push({ name: 'match', params: { id: this.match.id } })
     }
   }
 }
