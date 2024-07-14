@@ -193,4 +193,21 @@ export default {
     margin: 4.5vh;
   }
 }
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .login-modal{
+    width: 75vw;
+    height: 65vh;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+  .login-modal{
+    width: 85vw;
+    height: 60vh;
+    margin-top: -10vh;
+  }
+}
 </style>

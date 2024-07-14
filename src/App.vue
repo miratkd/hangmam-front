@@ -58,9 +58,27 @@ span {
   color: white;
 }
 
+/* Wide Screan */
 @media screen and (min-width: 1700px) {
   body {
     font-size: 0.9vw;
+  }
+}
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  body {
+    font-size: 1.75vw;
+  }
+  h1{
+    font-size: 8em;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+  body {
+    font-size: 1.2vh;
   }
 }
 </style>

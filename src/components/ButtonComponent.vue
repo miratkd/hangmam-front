@@ -52,4 +52,10 @@ export default {
   color: white;
   box-shadow: none;
 }
+
+@media screen and (max-width: 500px) {
+  .button-container{
+    padding: 1vh 0;
+  }
+}
 </style>

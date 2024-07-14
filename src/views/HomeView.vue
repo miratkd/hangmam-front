@@ -109,4 +109,23 @@ export default {
   gap: 1.5vh 2vw;
   margin-top: 3vh;
 }
+
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .home{
+    width: 80vw;
+  }
+  .home-button {
+    width: 25vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .home{
+    width: 90vw;
+    height: 55vh;
+  }
+  .home-button {
+    width: 40vw;
+  }
+}
 </style>
