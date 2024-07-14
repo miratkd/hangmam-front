@@ -24,6 +24,10 @@ export default class RequestService {
     return axios.post(this.url + 'users', account, this.config)
   }
 
+  me () {
+    return axios.get(this.url + 'me', this.config)
+  }
+
   // functions
   isTokenExpired (error) {
     if (error.response.status === 401 && error.response.data.message === 'Unauthenticated.') {

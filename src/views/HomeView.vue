@@ -5,7 +5,7 @@
     <div class="home-buttons-container" v-if="token">
       <ButtonComponent text="Regras" class="home-button" @click="$router.push('rules')" />
       <ButtonComponent text="Continuar" class="home-button" @click="$router.push('rules')" />
-      <ButtonComponent text="Meu Perfil" class="home-button" @click="$router.push('rules')" />
+      <ButtonComponent text="Meu Perfil" class="home-button" @click="() => showMyAccount = true" />
       <ButtonComponent text="Sair" :pink="true" class="home-button" @click="cleanToken" />
     </div>
     <div class="home-buttons-container" v-else>
@@ -13,6 +13,7 @@
       <ButtonComponent text="Login" class="home-button" @click="login" />
     </div>
     <LogInModal v-if="showLogin" :push="push" :close="closeLogin" />
+    <MyAccountComponent v-if="showMyAccount" :close="() => showMyAccount = false"/>
   </div>
 </template>
 
@@ -22,15 +23,17 @@ import ButtonComponent from '../components/ButtonComponent.vue'
 import LogInModal from '../components/LogInModal.vue'
 import RequestService from '@/services/RequestService'
 import NotificationService from '@/services/NotificationService'
+import MyAccountComponent from '@/components/MyAccountComponent.vue'
 export default {
   name: 'HomeView',
-  components: { IconButton, ButtonComponent, LogInModal },
+  components: { IconButton, ButtonComponent, LogInModal, MyAccountComponent },
   data () {
     return {
       showLogin: false,
       requestService: new RequestService(),
       token: localStorage.getItem('token'),
-      push: undefined
+      push: undefined,
+      showMyAccount: false
     }
   },
   mounted () {
