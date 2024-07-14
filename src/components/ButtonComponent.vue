@@ -31,10 +31,10 @@ export default {
 }
 .pink-button{
   background-image: linear-gradient(to bottom, #FE71FE, #7199FF);
-  box-shadow: inset #313b47 0 -2px 0 3px, inset #b05df0 0 -2px 0 4px;
+  box-shadow: inset #243041 0 -2px 0 3px, inset #9D2DF5 0 -2px 0 4px;
 }
 .pink-button:hover{
-  background-image: linear-gradient(to bottom, #f793f7, #9ab5fa);
+  background-image: linear-gradient(to bottom, #f696f6, #97b1f3);
   box-shadow: inset #313b47 0 -2px 0 3px, inset #b05df0 0 -2px 0 4px;
 }
 .white-button{

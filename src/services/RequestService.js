@@ -28,6 +28,15 @@ export default class RequestService {
     return axios.get(this.url + 'me', this.config)
   }
 
+  history (page) {
+    const config = { ...this.config, params: { page } }
+    return axios.get(this.url + 'history', config)
+  }
+
+  availableMatches () {
+    return axios.get(this.url + 'avaible', this.config)
+  }
+
   // functions
   isTokenExpired (error) {
     if (error.response.status === 401 && error.response.data.message === 'Unauthenticated.') {

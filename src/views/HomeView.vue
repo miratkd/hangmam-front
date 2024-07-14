@@ -4,7 +4,7 @@
     <IconButton class="home-play-button" :img="require('@/assets/play.png')" @click="handlePlay" />
     <div class="home-buttons-container" v-if="token">
       <ButtonComponent text="Regras" class="home-button" @click="$router.push('rules')" />
-      <ButtonComponent text="Continuar" class="home-button" @click="$router.push('rules')" />
+      <ButtonComponent text="Continuar" class="home-button" @click="() => showActiveMatches = true" />
       <ButtonComponent text="Meu Perfil" class="home-button" @click="() => showMyAccount = true" />
       <ButtonComponent text="Sair" :pink="true" class="home-button" @click="cleanToken" />
     </div>
@@ -14,6 +14,7 @@
     </div>
     <LogInModal v-if="showLogin" :push="push" :close="closeLogin" />
     <MyAccountComponent v-if="showMyAccount" :close="() => showMyAccount = false"/>
+    <ActiveMatches v-if="showActiveMatches" :close="() => showActiveMatches = false"/>
   </div>
 </template>
 
@@ -24,16 +25,24 @@ import LogInModal from '../components/LogInModal.vue'
 import RequestService from '@/services/RequestService'
 import NotificationService from '@/services/NotificationService'
 import MyAccountComponent from '@/components/MyAccountComponent.vue'
+import ActiveMatches from '@/components/ActiveMatches.vue'
 export default {
   name: 'HomeView',
-  components: { IconButton, ButtonComponent, LogInModal, MyAccountComponent },
+  components: {
+    IconButton,
+    ButtonComponent,
+    LogInModal,
+    MyAccountComponent,
+    ActiveMatches
+  },
   data () {
     return {
       showLogin: false,
       requestService: new RequestService(),
       token: localStorage.getItem('token'),
       push: undefined,
-      showMyAccount: false
+      showMyAccount: false,
+      showActiveMatches: false
     }
   },
   mounted () {

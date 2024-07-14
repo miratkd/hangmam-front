@@ -8,6 +8,12 @@
         <AccountInfo title="Data de criação" :value="account.createdAt"/>
         <AccountInfo title="Palavras concluídas" :value="account.wordsCompleteds"/>
       </div>
+      <h3 class="WHITE account-history-title">Histórico</h3>
+      <div class="account-history-container" v-if="history.length > 0">
+        <MyAccountMatch v-for="match in history" :key="match.id" :match="match"/>
+        <ButtonComponent @click="loadMore" v-if="page < lastPage" class="account-history-button" text="Mostrar mais"/>
+      </div>
+      <h4 v-else class="WHITE">Desculpe, Você não tem nenhum partida, ainda...</h4>
     </div>
 
     <LoadingComponent v-if="isLoading"/>
@@ -18,11 +24,15 @@
 import RequestService from '@/services/RequestService'
 import LoadingComponent from './LoadingComponent.vue'
 import AccountInfo from './AccountInfo.vue'
+import MyAccountMatch from './MyAccountMatch.vue'
+import ButtonComponent from './ButtonComponent.vue'
 export default {
   name: 'MyAccountComponent',
   components: {
     LoadingComponent,
-    AccountInfo
+    AccountInfo,
+    MyAccountMatch,
+    ButtonComponent
   },
   props: {
     close: {
@@ -33,19 +43,35 @@ export default {
     return {
       isLoading: true,
       request: new RequestService(),
-      account: {}
+      account: {},
+      history: [],
+      page: 1,
+      lastPage: undefined
     }
   },
   created () {
-    this.request.me().then(resp => {
-      this.account = resp.data.data
-      console.log(this.account)
+    const me = this.request.me()
+    const history = this.request.history(this.page)
+    Promise.all([me, history]).then(resp => {
+      this.account = resp[0].data.data
+      this.history = resp[1].data.data
+      this.lastPage = resp[1].data.meta.last_page
       this.isLoading = false
     }).catch(error => {
-      if (this.request.isTokenExpired(error)) return
-      this.request.genericErrorMessage()
+      console.log(error)
+      if (!this.request.isTokenExpired(error)) this.request.genericErrorMessage()
       this.close()
     })
+  },
+  methods: {
+    loadMore () {
+      this.page++
+      this.isLoading = true
+      this.request.history(this.page).then(resp => {
+        this.history.push(...resp.data.data)
+        this.isLoading = false
+      })
+    }
   }
 }
 </script>
@@ -85,6 +111,27 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3vh 1vw;
-  margin-top: 5vh
+  margin-top: 3vh
+}
+.account-history-title{
+  margin: 5%;
+}
+.account-history-container{
+  flex: 1;
+  width: 90%;
+  overflow: auto;
+}
+.account-history-button{
+  margin: 0 30%
+}
+::-webkit-scrollbar {
+  width: 1vw;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 8px;
 }
 </style>
