@@ -63,4 +63,18 @@ export default {
   background-color: #2462ff6d;
   box-shadow: inset #25206b 0 -2px 0 3px, inset #6c95fa 0 2px 0 4px;
 }
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .letter-button{
+    width: 8vw;
+    height: 8vw;
+  }
+}
+@media screen and (max-width: 500px) {
+  .letter-button{
+    width: 9vw;
+    height: 12vw;
+  }
+}
 </style>

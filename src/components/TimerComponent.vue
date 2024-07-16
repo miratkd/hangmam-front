@@ -45,7 +45,7 @@ export default {
   background-color: white;
   padding: 0.5vh 1vw;
   border-radius: 8px;
-  width: 20%;
+  width: 15vw;
   margin-right: 5%;
 }
 .timer-bar{
@@ -54,5 +54,12 @@ export default {
   border-radius: 8px;
   width: 0%;
   transition: width 1s;
+}
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .timer-container{
+    width: 95%;
+  }
 }
 </style>

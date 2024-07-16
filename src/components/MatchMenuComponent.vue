@@ -60,4 +60,21 @@ export default {
 .menu-button{
   margin-top: 3vh;
 }
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .menu-modal{
+    width: 50%;
+  }
+  .menu-button{
+    width: 80%;
+  }
+}
+/* Mobile */
+@media screen and (max-width: 500px) {
+  .menu-modal{
+    width: 70%;
+    border-radius: 50px;
+  }
+}
 </style>

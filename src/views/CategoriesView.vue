@@ -92,4 +92,36 @@ export default {
   width: 100%;
   height: 15vh;
 }
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .categories-grid-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 10% 5%;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+  .categories-title-container{
+    justify-content: flex-end;
+  }
+  .categories-back-button{
+    width: 6vh;
+    height: 6vh;
+  }
+  .categories-grid-container {
+    grid-template-columns: 1fr;
+    gap: 3%;
+  }
+  .categories-button{
+    height: 9.5vh;
+  }
+  .categories-grid-container{
+    margin-top: 4vh;
+  }
+  .categories-page{
+    margin-top: 4vh;
+  }
+}
 </style>

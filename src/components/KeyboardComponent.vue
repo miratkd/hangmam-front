@@ -51,4 +51,17 @@ export default {
   background-color: darkgray;
   box-shadow: inset rgb(120, 120, 120) 0 -2px 0 3px, inset rgb(118, 118, 118) 0 2px 0 4px;
 }
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .keyboard-button{
+    width: 90%;
+  }
+}
+/* Mobile */
+@media screen and (max-width: 500px) {
+  .keyboard-container{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+  }
+}
 </style>

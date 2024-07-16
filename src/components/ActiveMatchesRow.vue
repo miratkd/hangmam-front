@@ -41,4 +41,20 @@ export default {
   height: 4vw;
   width: 4vw;
 }
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .match-play-button{
+    width: 6vw;
+    height: 6vw;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+  .match-play-button{
+    width: 9vw;
+    height: 9vw;
+  }
+}
 </style>

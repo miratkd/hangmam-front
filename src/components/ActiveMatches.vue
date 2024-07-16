@@ -15,6 +15,7 @@
 import RequestService from '@/services/RequestService'
 import LoadingComponent from './LoadingComponent.vue'
 import ActiveMatchesRow from './ActiveMatchesRow.vue'
+import NotificationService from '@/services/NotificationService'
 export default {
   name: 'ActiveMatchesComponent',
   components: {
@@ -24,18 +25,26 @@ export default {
   props: {
     close: {
       type: Function
+    },
+    cleanToken: {
+      type: Function
     }
   },
   data () {
     return {
       matches: [],
-      isLoading: true
+      isLoading: true,
+      request: new RequestService()
     }
   },
   created () {
-    new RequestService().availableMatches().then(resp => {
+    this.request.availableMatches().then(resp => {
       this.matches = resp.data.data
       this.isLoading = false
+    }).catch(error => {
+      if (this.request.isTokenExpired(error)) new NotificationService().send('Desculpe, sua seção inspirou') && this.cleanToken()
+      else this.request.genericErrorMessage()
+      this.close()
     })
   }
 }
@@ -79,5 +88,20 @@ export default {
 ::-webkit-scrollbar-thumb {
   background: white;
   border-radius: 8px;
+}
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .active-matches{
+    width: 70vw;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+  .active-matches{
+    width: 90vw;
+    margin-top: -5vh;
+  }
 }
 </style>

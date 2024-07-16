@@ -63,4 +63,19 @@ h3{
   margin: 4vh 0;
   text-align: center;
 }
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .win-modal{
+    width: 75vw;
+    left: 13vw;
+  }
+}
+/* Mobile */
+@media screen and (max-width: 500px) {
+  .win-modal{
+    width: 85vw;
+    left: 7vw;
+  }
+}
 </style>

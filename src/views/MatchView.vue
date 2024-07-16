@@ -5,10 +5,12 @@
     <WinModal v-if="match.is_win" :answer="match.word.join('')" :back="() => $router.push('/categories')"/>
     <MatchMenuComponent v-if="showMenu" :close="() => showMenu = false"/>
     <div class="match-title-container">
-      <IconButton :img="require('@/assets/menuIcon.png')" @click="showMenu=true" />
+      <IconButton :img="require('@/assets/menuIcon.png')" class="mobile-menu-icon" @click="showMenu=true" />
       <h2 class="match-title">{{ match.category }}</h2>
-      <TimerComponent :timeLeft="match.time_left" :timeoutMatch="timeoutMatch" />
-      <LivesComponent :lives="match.lives" />
+      <div class="match-lives-container">
+        <TimerComponent :timeLeft="match.time_left" :timeoutMatch="timeoutMatch" />
+        <LivesComponent :lives="match.lives" />
+      </div>
     </div>
     <PhaseComponent :phaseList="match.word" />
     <KeyboardComponent :selectLetter="selectLetter" :letterList="match.letters_list" />
@@ -130,6 +132,12 @@ export default {
   animation: rotate 1s infinite;
 }
 
+.match-lives-container{
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -137,6 +145,36 @@ export default {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .match-page{
+    margin: 0 4vw;
+    margin-top: 4vh;
+  }
+  .icon-button-container{
+    width: 7vw;
+    height: 7vw;
+  }
+  .match-lives-container{
+    flex-direction: column;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+  body {
+    font-size: 1.2vh;
+  }
+  .match-page{
+    margin: 0 2vw;
+    margin-top: 4vh;
+  }
+  .mobile-menu-icon{
+    width: 10vw;
+    height: 10vw;
   }
 }
 </style>

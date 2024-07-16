@@ -13,8 +13,8 @@
       <ButtonComponent text="Login" class="home-button" @click="login" />
     </div>
     <LogInModal v-if="showLogin" :push="push" :close="closeLogin" />
-    <MyAccountComponent v-if="showMyAccount" :close="() => showMyAccount = false"/>
-    <ActiveMatches v-if="showActiveMatches" :close="() => showActiveMatches = false"/>
+    <MyAccountComponent v-if="showMyAccount" :close="close" :cleanToken="cleanToken"/>
+    <ActiveMatches v-if="showActiveMatches" :close="close" :cleanToken="cleanToken"/>
   </div>
 </template>
 
@@ -65,6 +65,10 @@ export default {
     cleanToken () {
       localStorage.removeItem('token')
       this.token = null
+    },
+    close () {
+      this.showActiveMatches = false
+      this.showMyAccount = false
     },
     closeLogin () {
       this.showLogin = false
@@ -123,6 +127,7 @@ export default {
   .home{
     width: 90vw;
     height: 55vh;
+    margin-top: 17vh;
   }
   .home-button {
     width: 40vw;

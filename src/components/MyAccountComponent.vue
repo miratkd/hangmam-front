@@ -37,6 +37,9 @@ export default {
   props: {
     close: {
       type: Function
+    },
+    cleanToken: {
+      type: Function
     }
   },
   data () {
@@ -58,8 +61,8 @@ export default {
       this.lastPage = resp[1].data.meta.last_page
       this.isLoading = false
     }).catch(error => {
-      console.log(error)
-      if (!this.request.isTokenExpired(error)) this.request.genericErrorMessage()
+      if (this.request.isTokenExpired(error)) this.cleanToken()
+      else this.request.genericErrorMessage()
       this.close()
     })
   },
@@ -133,5 +136,29 @@ export default {
 ::-webkit-scrollbar-thumb {
   background: white;
   border-radius: 8px;
+}
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .account-modal{
+    width: 70vw;
+  }
+  .account-info-container{
+    gap: 2vh 5vw;
+  }
+  span {
+    width: 10vw;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+  .account-modal{
+    width: 95vw;
+    margin-top: -5vh
+  }
+  .account-modal-title{
+    margin-top: -5vh;
+  }
 }
 </style>

@@ -14,7 +14,7 @@ export default {
 <style scoped>
 .icon-button-container{
   background-image: linear-gradient(to bottom, #FE71FE, #7199FF);
-  box-shadow: inset #243041 0 -2px 0 5px, inset #9D2DF5 0 -5px 0 9px;
+  box-shadow: inset #243041 0 -2px 0 0.3em, inset #9D2DF5 0 -5px 0 0.5em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +26,7 @@ export default {
 }
 .icon-button-container:hover{
   background-image: linear-gradient(to bottom, #f696f6, #97b1f3);
-  box-shadow: inset #313b47 0 -2px 0 5px, inset #b05df0 0 -5px 0 9px;
+  box-shadow: inset #313b47 0 -2px 0 0.3em, inset #b05df0 0 -5px 0 0.5em;
 }
 .icon-button-icon{
   width: 40%;

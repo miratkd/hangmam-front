@@ -54,15 +54,27 @@ export default {
   flex-direction: column;
   align-items: center;
   border-radius: 72px;
+  padding: 0 2vw;
   padding-bottom: 5vh;
   position: fixed;
   bottom: 100vh;
   transition: 0.5s;
+  box-sizing: border-box;
 }
 h2{
   margin: 1.5vh 0;
+  text-align: center
 }
 h3{
   margin: 4vh 0;
+}
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  .timeout-modal{
+    left: 5vw;
+    border-radius: 50px;
+    width: 90vw;
+  }
 }
 </style>

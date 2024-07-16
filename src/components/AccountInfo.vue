@@ -39,4 +39,18 @@ export default {
 span {
   width: 15vw;
 }
+
+/* Tablet */
+@media screen and (max-width: 1050px ) and (orientation: Portrait), (max-width: 700) {
+  span {
+    width: 27.5vw;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+  span {
+    width: 35vw;
+  }
+}
 </style>
