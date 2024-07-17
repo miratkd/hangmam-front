@@ -72,6 +72,8 @@ export default {
 }
 
 .categories-back-button {
+  width: 7vw;
+  height: 7vw;
   position: absolute;
   left: 0;
 }
@@ -99,6 +101,10 @@ export default {
     grid-template-columns: 1fr 1fr;
     gap: 10% 5%;
   }
+  .categories-back-button{
+    width: 10vw;
+    height: 10vw;
+  }
 }
 
 /* Mobile */
@@ -107,8 +113,8 @@ export default {
     justify-content: flex-end;
   }
   .categories-back-button{
-    width: 6vh;
-    height: 6vh;
+    width: 12vw;
+    height: 12vw;
   }
   .categories-grid-container {
     grid-template-columns: 1fr;

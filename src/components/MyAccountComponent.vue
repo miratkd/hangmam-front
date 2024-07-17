@@ -125,7 +125,8 @@ export default {
   overflow: auto;
 }
 .account-history-button{
-  margin: 0 30%
+  margin: 0 30%;
+  width: 40%;
 }
 ::-webkit-scrollbar {
   width: 1vw;

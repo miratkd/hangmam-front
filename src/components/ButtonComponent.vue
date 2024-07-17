@@ -19,7 +19,6 @@ export default {
   font-style: normal;
   font-size: 2.3em;
   border-radius: 20px;
-  width: 40%;
   padding: 0.5vh 0;
   box-shadow: inset #140E66 0 -2px 0 3px, inset #3C74FF 0 2px 0 4px;
   cursor: pointer;

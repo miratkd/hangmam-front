@@ -3,7 +3,7 @@
     <div id="win-modal" class="win-modal">
       <h2 class="WHITE">Parabéns!!!</h2>
       <h3 class="WHITE">Você encontrou todas as letras: <br> "{{ answer }}"</h3>
-      <ButtonComponent @click="back" text="Voltar"/>
+      <ButtonComponent @click="back" style="width: 40%;" text="Voltar"/>
     </div>
   </div>
 </template>

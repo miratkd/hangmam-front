@@ -59,6 +59,7 @@ export default {
 }
 .menu-button{
   margin-top: 3vh;
+  width: 50%;
 }
 
 /* Tablet */

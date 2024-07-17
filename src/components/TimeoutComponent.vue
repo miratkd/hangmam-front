@@ -3,7 +3,7 @@
     <div id="timeout-modal" class="timeout-modal">
       <h2 class="WHITE">Desculpe, {{ message }}...</h2>
       <h3 class="WHITE">A resposta era: "{{ answer }}".</h3>
-      <ButtonComponent text="Voltar" @click="back"/>
+      <ButtonComponent text="Voltar" style="width: 40%;" @click="back"/>
     </div>
   </div>
 </template>
