@@ -1,4 +1,4 @@
-# Easy-Password
+# Hang-Man
 
 Não tem nada mais simples e relaxante do que uma partida de forca, acerte as letras e você ganha, fique sem vidas e você perde, simples e qualquer um pode experimentar.
 
