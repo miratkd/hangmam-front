@@ -53,6 +53,14 @@ export default {
       isLoading: false
     }
   },
+  watch: {
+    showCreate () {
+      this.emailAlert = false
+      this.userAlert = false
+      this.passwordAlerts = false
+      this.password = ''
+    }
+  },
   methods: {
     login () {
       if (this.loginFormIsNotValid()) return
